@@ -1,0 +1,7 @@
+{
+    "cluster_name": "my-cluster",
+    "kubelet_url": "https://elotl-maccri.s3.amazonaws.com/kubelet-v1.18.15-38-g985cf1be960",
+    "kube_proxy_url": "https://elotl-maccri.s3.amazonaws.com/kube-proxy-v1.21.0-alpha.1-1021-g1effa3faaa6",
+    "procri_url": "https://procri-dev.s3.amazonaws.com/procri-v0.0.1-67-gab347fd",
+    "nodes_number": 1
+}

@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buildkite-agent
+  labels:
+    app.kubernetes.io/name: buildkite-agent
+    app.kubernetes.io/component: cicd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: buildkite-agent
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: buildkite-agent
+    spec:
+      nodeSelector:
+        node.kubernetes.io/instance-type: mac1.metal
+      containers:
+        - name: agent
+          image: "library/busybox" # doesn't matter
+          command: ['/usr/local/bin/buildkite-agent', 'start', '--debug']
+          envFrom:
+            - secretRef:
+                name: buildkite-agent-secret

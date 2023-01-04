@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>Label</key>
+        <string>com.elotl.procri</string>
+        <key>ProgramArguments</key>
+        <array>
+            <string>sudo</string>
+            <string>/usr/local/bin/procri</string>
+            <string>--v</string>
+            <string>3</string>
+            <string>--listen</string>
+            <string>/tmp/.procri.sock</string>
+        </array>
+        <key>RunAtLoad</key>
+        <true/>
+        <key>KeepAlive</key>
+        <dict>
+            <key>SuccessfulExit</key>
+            <false/>
+        </dict>
+        <key>StandardErrorPath</key>
+        <string>/tmp/procri.log</string>
+        <key>StandardOutPath</key>
+        <string>/tmp/procri.log</string>
+</dict>
+</plist>

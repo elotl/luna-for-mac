@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: echo-server
+spec:
+  restartPolicy: OnFailure
+  containers:
+    - name: server
+      image: "library/busybox"
+      # assumes that https://procri-dev.s3.amazonaws.com/echo-server
+      # is on the host
+      command: ['/usr/local/bin/echo-server', '9000', 'hello']

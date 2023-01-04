@@ -1,0 +1,48 @@
+# options for analysis running
+run:
+  # timeout for analysis, e.g. 30s, 5m, default is 1m
+  timeout: 210s
+
+  # exit code when at least one issue was found, default is 1
+  issues-exit-code: 1
+
+  # include test files or not, default is true
+  tests: true
+
+
+linters:
+  enable:
+    - deadcode
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - structcheck
+    - typecheck
+    - unused
+    - varcheck
+    - cyclop
+    - gocritic
+    - goimports
+    - wastedassign
+    - promlinter
+    - prealloc
+    - makezero
+    - exportloopref
+    - gosec
+  fast: true
+
+linters-settings:
+  cyclop:
+    # the maximal code complexity to report
+    max-complexity: 15
+  gosec:
+    excludes:
+      - G204 # launching subprocess
+
+# output configuration options
+output:
+  # colored-line-number|line-number|json|tab|checkstyle|code-climate|junit-xml|github-actions
+  # default is "colored-line-number"
+  format: github-actions

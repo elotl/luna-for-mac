@@ -1,0 +1,55 @@
+on:
+  push:
+    paths-ignore:
+      - 'deploy/**'
+      - 'docs/**'
+name: Build and test
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.18.x
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - run: git fetch origin +refs/tags/*:refs/tags/*
+      - uses: actions/cache@v2
+        with:
+          # In order:
+          # * Module download cache
+          # * Build cache (Linux)
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('procri/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      - name: Build procri
+        run: ./procri/release/build.sh
+      - name: Set VERSION
+        id: set_version
+        run: echo ::set-output name=VERSION::$(git describe --dirty)
+      - name: Build and upload (darwin/amd64)
+        uses: docker://amazon/aws-cli:latest
+        with:
+          args: s3 cp --acl public-read procri/procri-darwin-amd64 s3://${{ env.PROCRI_DEV_BUCKET }}/procri-darwin-amd64-${{ env.VERSION }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.TF_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "us-east-1"
+          VERSION: ${{ steps.set_version.outputs.VERSION }}
+          PROCRI_DEV_BUCKET: "procri-dev"
+      - name: Build and upload (darwin/arm64)
+        uses: docker://amazon/aws-cli:latest
+        with:
+          args: s3 cp --acl public-read procri/procri-darwin-arm64 s3://${{ env.PROCRI_DEV_BUCKET }}/procri-darwin-arm64-${{ env.VERSION }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.TF_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "us-east-1"
+          VERSION: ${{ steps.set_version.outputs.VERSION }}
+          PROCRI_DEV_BUCKET: "procri-dev"

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: long-running-pod
+spec:
+  restartPolicy: OnFailure
+  containers:
+    - name: sleeper
+      image: "library/busybox"
+      command: ["/bin/bash", "-c", 'sleep 3600']

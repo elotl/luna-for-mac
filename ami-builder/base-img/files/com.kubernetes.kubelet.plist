@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>Label</key>
+        <string>com.kubernetes.kubelet</string>
+        <key>UserName</key>
+        <string>root</string>
+        <key>ProgramArguments</key>
+        <array>
+            <string>sudo</string>
+            <string>/usr/local/bin/kubelet</string>
+            <string>--cloud-provider</string>
+            <string>aws</string>
+            <string>--max-pods=1</string>
+            <string>--kubeconfig</string>
+            <string>/etc/kube/kubeconfig.yaml</string>
+            <string>--fail-swap-on=false</string>
+            <string>-v=5</string>
+            <string>--container-runtime</string>
+            <string>remote</string>
+            <string>--feature-gates</string>
+            <string>VolumeSubpath=false</string>
+            <string>--cgroups-per-qos=false</string>
+            <string>--container-runtime-endpoint</string>
+            <string>unix:///tmp/procri.sock</string>
+            <string>--config</string>
+            <string>/etc/kube/kubelet-config.yaml</string>
+        </array>
+        <key>RunAtLoad</key>
+        <true/>
+        <key>KeepAlive</key>
+        <dict>
+            <key>SuccessfulExit</key>
+            <false/>
+        </dict>
+        <key>EnvironmentVariables</key>
+        <dict>
+            <key>PATH</key>
+            <string>/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin</string>
+        </dict>
+        <key>StandardErrorPath</key>
+        <string>/var/log/kubelet.log</string>
+        <key>StandardOutPath</key>
+        <string>/var/log/kubelet.log</string>
+</dict>
+</plist>
