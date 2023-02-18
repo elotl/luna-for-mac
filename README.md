@@ -13,9 +13,9 @@ local virtual machine or even in the Cloud via AWS mac*.metal instances.
 
 # Kubernetes stack
 
-1. [Node provisioning](deploy/eks-node/README.md) 2. [Supported
-features](docs/supported_features.md) 3. [Deploy EKS cluster with mac1.metal
-nodes](deploy/eks-cluster-flare/README.md)
+1. [Node provisioning](docs/node_provisioning.md)
+2. [Supported features](docs/supported_features.md)
+3. [Deploy EKS cluster with mac1.metal nodes](deploy/eks-cluster-flare/)
 
 # Known limitations
 
@@ -28,10 +28,9 @@ without interrupting the pod.
 
 The Luna For Mac suite is a set of three executable:
 
-1. ProcCRI, a CRI implementation that runs on “bare metal” instead of a
-   virtualized environment
-2. Kubelet, the primary "node agent" that runs on each node.  3. Kube-proxy,
-the network proxy that runs on each node.
+1. ProcCRI, a CRI implementation that runs on “bare metal” instead of a virtualized environment
+2. Kubelet, the primary "node agent" that runs on each node.
+3. Kube-proxy, the network proxy that runs on each node.
 
 To build kube-proxy & kubelet you’ll need a copy of our [Kubernetes
 repository](https://github.com/elotl/kubernetes). It contains 4 branches:
