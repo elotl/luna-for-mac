@@ -79,30 +79,5 @@ variable "map_users" {
     groups = list(string)
   }))
 
-  default = [
-    {
-      userarn = "arn:aws:iam::387435531342:user/pawel@elotl.co"
-      username = "pawel@elotl.co"
-      groups = [
-        "system:masters"]
-    },
-    {
-      userarn = "arn:aws:iam::387435531342:user/henry@elotl.co"
-      username = "henry@elotl.co"
-      groups = [
-        "system:masters"]
-    },
-    {
-      userarn = "arn:aws:iam::387435531342:user/madhuri@elotl.co"
-      username = "madhuri@elotl.co"
-      groups = [
-        "system:masters"]
-    },
-    {
-      userarn = "arn:aws:iam::387435531342:user/andrey"
-      username = "andrey"
-      groups = [
-        "system:masters"]
-    },
-  ]
+  default = []
 }
